@@ -1,28 +1,32 @@
 {
   "name": "elm-bb",
   "version": "1.0.0",
-  "description": "BlackBox provides a repl for runnng Elm code from the command line.",
+  "description": "Advent of Code in Elm on the Command Line",
   "main": "./src/repl.js",
   "scripts": {
-    "build": "elm make --optimize src/Main.elm --output=src/main.js",
+    "build": "npx elm make src/Main.elm --output=src/main.js",
     "start": "node src/repl.js",
-    "link": "ln -s PATH_TO/src/repl.js /usr/local/bin/elm-bb"
+    "link": "ln -s ~/code/AOC-repl/src/repl.js /usr/local/bin/elm-bb",
+    "scaffold": "sh addDay.sh"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jxxcarlson/blackbox.git"
+    "url": "git+https://github.com/stubbedtoe/AoC-2022.git"
   },
   "keywords": [
     "Elm",
-    "repl"
+    "repl",
+    "AoC"
   ],
-  "author": "James Carlson",
+  "author": "Andrew Healy",
   "license": "MIT",
   "bin": {
     "elm-bb": "./src/repl.js"
   },
-  "bugs": {
-    "url": "https://github.com/jxxcarlson/blackbox/issues"
+  "devDependencies": {
+    "elm-tooling": "^1.10.0"
   },
-  "homepage": "https://github.com/jxxcarlson/blackbox#readme"
+  "dependencies": {
+    "elm-codegen": "^0.2.0"
+  }
 }

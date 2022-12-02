@@ -5,7 +5,7 @@ import Json.Decode as D
 import Json.Encode as E
 import List.Extra
 import Platform exposing (Program)
-import Wordcount as Blackbox
+import Solutions.Day1.Solution as Blackbox
 
 
 port get : (String -> msg) -> Sub msg
@@ -80,7 +80,7 @@ update msg model =
                                 False ->
                                     ":" ++ model.residualCommand ++ " " ++ removeComments data
                     in
-                    { model | fileContents = Just data } |> withCmd (put <| Blackbox.transform input)
+                    { model | fileContents = Just data } |> withCmd (put <| Blackbox.partA input)
 
 
 processCommand : Model -> String -> ( Model, Cmd Msg )
@@ -99,8 +99,8 @@ processCommand model cmdString =
                 |> Maybe.withDefault ""
     in
     case cmd of
-        Just ":help" ->
-            model |> withCmd (put Blackbox.helpText)
+        -- Just ":help" ->
+        --     model |> withCmd (put Blackbox.helpText)
 
         Just ":get" ->
             loadFile model arg
@@ -138,10 +138,10 @@ processCommand model cmdString =
                                         |> String.join " "
                                         |> (\x -> ":" ++ x ++ "\n")
                     in
-                    model |> withCmd (put (Blackbox.transform <| (residualArgs ++ removeComments str)))
+                    model |> withCmd (put (Blackbox.partA <| (residualArgs ++ removeComments str)))
 
         _ ->
-            model |> withCmd (put <| Blackbox.transform (removeComments cmdString))
+            model |> withCmd (put <| Blackbox.partA (removeComments cmdString))
 
 
 

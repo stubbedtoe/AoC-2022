@@ -1,3 +1,6 @@
 elm-stuff/
 src/main.js
 .idea/
+.env
+node_modules
+.DS_Store

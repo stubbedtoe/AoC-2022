@@ -1,4 +1,33 @@
-# Elm-blackbox
+# Advent of code 2022 in Elm (on the terminal)
+
+## Dependencies
+
+`elm`, `yarn`, `node` are required to be installed globally.
+
+```
+yarn
+elm install
+npx elm-codegen install
+```
+
+### Setup
+
+Create a `.env` file at the root with a single variable called `GITHUB_COOKIE` (you can find this in reqests on `aventofcode.com` in the headers).
+
+### Usage
+
+`yarn scaffold <n>` to run the codegen scaffolding tool. This will create three files in `src/Solutions/Day<n>/`:
+
+- `Input.elm`: where the test input and expected output lives. The large puzzle input is downloaded from the Advent of Code site via `curl`
+- `Solution.elm`: some basic solution scaffolding
+- `Test.elm`: runs unit tests against the test input and your solution (does not require modification for a basic unit test)
+
+### Extra info...
+
+...about how to test and run your code is given when the scaffolding command completes.
+
+
+## Elm-blackbox
 
 Elm-blackbox provides a repl for talking to Elm code in the form of a
 "black box" that takes a string as input and produces a string
