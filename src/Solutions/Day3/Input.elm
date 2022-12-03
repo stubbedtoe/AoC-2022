@@ -1,4 +1,4 @@
-module Input exposing (..)
+module Solutions.Day3.Input exposing (..)
 
 {-| 
 -}
