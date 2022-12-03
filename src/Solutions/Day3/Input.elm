@@ -7,17 +7,22 @@ module Solutions.Day3.Input exposing (..)
 
 testInput : String
 testInput =
-    "replace me with the test input"
+    """vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw"""
 
 
 expectedA : String
 expectedA =
-    ""
+    "157"
 
 
 expectedB : String
 expectedB =
-    ""
+    "70"
 
 
 input : String
