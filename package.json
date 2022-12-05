@@ -7,7 +7,8 @@
     "build": "npx elm make src/Main.elm --output=src/main.js",
     "start": "node src/repl.js",
     "link": "ln -s ~/code/AOC-repl/src/repl.js /usr/local/bin/elm-bb",
-    "scaffold": "sh addDay.sh"
+    "scaffold": "sh addDay.sh",
+    "test": "npx elm-test \"src/**/Test.elm\""
   },
   "repository": {
     "type": "git",
