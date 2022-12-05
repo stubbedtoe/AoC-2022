@@ -7,7 +7,6 @@ module Solutions.Day5.Solution exposing (..)
 import Solutions.Day5.Input as Input
 import Parser exposing (Parser, symbol, spaces, succeed, int, (|.), (|=))
 import Array exposing (Array)
-import Parser exposing (number)
 
 type alias Instruction = 
     { number : Int
@@ -50,7 +49,7 @@ executeInstruction part { number, from, to } crates  =
             case part of
                 A ->
                     List.take number fromCrate
-                    |> List.reverse
+                        |> List.reverse
                 B ->
                     List.take number fromCrate
 

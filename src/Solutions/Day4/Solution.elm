@@ -18,6 +18,14 @@ type alias ElfPair =
 
 type alias ElfSets = (Set Int, Set Int)
 
+isSubsetOf : (Set comparable, Set comparable) -> Bool
+isSubsetOf (set1, set2) =
+    let
+        intersection =
+            Set.intersect set1 set2
+    in
+    (Set.diff set1 intersection |> Set.isEmpty) || (Set.diff set2 intersection |> Set.isEmpty)
+
 pairsToSets : ElfPair -> ElfSets
 pairsToSets { lower1, upper1, lower2, upper2 } =
     (Set.fromList (List.range lower1 upper1)
@@ -28,15 +36,6 @@ overlapAtAll (set1, set2) =
     Set.intersect set1 set2
         |> Set.size
         |> (<) 0
-
-isContainedWithinTheOther : ElfPair -> Bool
-isContainedWithinTheOther { lower1, upper1, lower2, upper2 } =
-    if lower1 < lower2 then
-        upper2 <= upper1
-    else if lower2 < lower1 then
-        upper1 <= upper2
-    else
-        True
 
 parseElfPair : Parser ElfPair
 parseElfPair =
@@ -59,7 +58,8 @@ parseLines input =
 solveA : String -> String
 solveA input =
     parseLines input
-    |> List.filter isContainedWithinTheOther
+    |> List.map pairsToSets
+    |> List.filter isSubsetOf
     |> List.length
     |> String.fromInt
 
