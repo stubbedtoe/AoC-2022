@@ -7,7 +7,6 @@ module Solutions.Day6.Solution exposing (..)
 import Solutions.Day6.Input as Input
 import Set
 import List.Extra exposing (Step(..))
-import Solutions.Day1.Solution exposing (..)
 
 containsRepeatedChar : List Char -> Bool
 containsRepeatedChar chars =
@@ -21,13 +20,9 @@ containsRepeatedChar chars =
 solveInner : List Char -> Int -> Int -> Int
 solveInner chars index take =
     if (containsRepeatedChar (List.take take chars)) then
-        let
-            rest =
-                (List.tail chars)
-        in
-        case rest of
-            Just r ->
-                solveInner r (index + 1) take
+        case (List.tail chars) of
+            Just rest ->
+                solveInner rest (index + 1) take
             Nothing ->
                 index
     else
