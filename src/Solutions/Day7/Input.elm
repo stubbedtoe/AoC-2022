@@ -1,4 +1,4 @@
-module Input exposing (..)
+module Solutions.Day7.Input exposing (..)
 
 {-| 
 -}
@@ -7,17 +7,39 @@ module Input exposing (..)
 
 testInput : String
 testInput =
-    "replace me with the test input"
+    """$ cd /
+$ ls
+dir a
+14848514 b.txt
+8504156 c.dat
+dir d
+$ cd a
+$ ls
+dir e
+29116 f
+2557 g
+62596 h.lst
+$ cd e
+$ ls
+584 i
+$ cd ..
+$ cd ..
+$ cd d
+$ ls
+4060174 j
+8033020 d.log
+5626152 d.ext
+7214296 k"""
 
 
 expectedA : String
 expectedA =
-    ""
+    "95437"
 
 
 expectedB : String
 expectedB =
-    ""
+    "24933642"
 
 
 input : String
