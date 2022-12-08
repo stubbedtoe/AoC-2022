@@ -13,7 +13,7 @@ file : String -> Elm.File
 file input =
     Elm.file [ "Input" ]
         [ Elm.declaration "testInput"
-            (Elm.string "replace me with the test input")
+            (Elm.string "replace\nme with the\ntest input")
           , Elm.declaration "expectedA"
             (Elm.string "")
           , Elm.declaration "expectedB"

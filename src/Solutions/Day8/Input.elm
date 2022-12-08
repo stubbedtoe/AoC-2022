@@ -1,4 +1,4 @@
-module Input exposing (..)
+module Solutions.Day8.Input exposing (..)
 
 {-| 
 -}
@@ -7,17 +7,21 @@ module Input exposing (..)
 
 testInput : String
 testInput =
-    "replace me with the test input"
+    """30373
+25512
+65332
+33549
+35390"""
 
 
 expectedA : String
 expectedA =
-    ""
+    "21"
 
 
 expectedB : String
 expectedB =
-    ""
+    "8"
 
 
 input : String

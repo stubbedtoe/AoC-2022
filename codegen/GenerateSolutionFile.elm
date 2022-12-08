@@ -3,7 +3,6 @@ module GenerateSolutionFile exposing (main)
 import Elm
 import Elm.Case
 import Elm.Declare
-import Elm.Op
 import Elm.Annotation as Type
 import Gen.CodeGen.Generate as Generate
 import Gen.Input
