@@ -152,10 +152,10 @@ solveB input =
                 |> List.sortWith packetsComparisonPt2
 
         indexOfFirstDivider =
-            Maybe.withDefault (-1) (List.Extra.findIndex (\p -> p == dividerPackets2) sortedPackets)
+            Maybe.withDefault (-1) (List.Extra.findIndex ((==) dividerPackets2) sortedPackets)
 
         indexOfSecondDivider =
-            Maybe.withDefault (-1) (List.Extra.findIndex (\p -> p == dividerPackets6) sortedPackets)
+            Maybe.withDefault (-1) (List.Extra.findIndex ((==) dividerPackets6) sortedPackets)
 
     in
     (indexOfFirstDivider + 1) * (indexOfSecondDivider + 1)
