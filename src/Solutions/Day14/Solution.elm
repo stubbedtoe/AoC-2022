@@ -8,6 +8,7 @@ import Solutions.Day14.Input as Input
 
 import Dict exposing (Dict)
 import Parser exposing (Parser, succeed, (|.), (|=), int, symbol)
+import Set exposing (Set)
 
 type Solid = Rock | Sand
 type Wall = Horizontal Int (Int, Int) | Vertical Int (Int, Int)
@@ -20,12 +21,22 @@ type alias Corner = String
 
 type Part = A | B
 
+type alias RockSegments = Set Location
+type alias SandSegments = Set Location
+
 
 type alias Edges =
     { left : Int
     , right : Int
     , depth : Int }
 
+
+locationIsOccupied2 : RockSegments -> SandSegments -> Int -> Location -> Bool
+locationIsOccupied2 rock sand depth particle =
+    if (Set.member particle rock) || (Set.member particle sand) then
+        True
+    else
+        (Tuple.second particle) == depth
 
 locationIsOccupied : Cave -> Edges -> Part -> Location -> Bool
 locationIsOccupied cave { depth } part (x, y) =
@@ -38,6 +49,39 @@ locationIsOccupied cave { depth } part (x, y) =
                 B -> y == depth
 
 
+dropSand2 : Int -> SandSegments -> RockSegments -> String
+dropSand2  =
+    fall2 (500, -1)
+
+
+fall2 : Location -> Int -> SandSegments -> RockSegments -> String
+fall2 (x, y) depth sand rock =
+    let
+        down =
+            (x, y + 1)
+        diagonalLeft =
+            (x - 1,  y + 1)
+        diagonalRight =
+            (x + 1,  y + 1)
+    in
+    if locationIsOccupied2 rock sand depth down then
+        if (y == -1) then
+            -- entrance blocked up
+            String.fromInt (Set.size sand)
+        else 
+            if locationIsOccupied2 rock sand depth diagonalLeft then
+                if locationIsOccupied2 rock sand depth diagonalRight then
+                    -- the sand has nowhere to go so place it in the intial location
+                    dropSand2 depth (Set.insert (x, y) sand) rock
+                else
+                    fall2 diagonalRight depth sand rock
+            else
+                fall2 diagonalLeft depth sand rock
+    else
+        fall2 down depth sand rock
+    
+
+
 fall : Part -> Edges -> Location -> Cave -> String
 fall part edges (x, y) cave =
     let
@@ -45,8 +89,6 @@ fall part edges (x, y) cave =
             case part of
                 A -> True
                 B -> False
-        isPartB =
-            not isPartA
     in
 
     case edges of 
@@ -225,9 +267,32 @@ constructCave input =
         |> List.foldl addRock Dict.empty
 
 
+constructCave2 : String -> RockSegments
+constructCave2 input =
+    String.lines input
+        |> List.map parseLine
+        |> List.map createWallsFromCorners
+        |> List.concatMap identity
+        |> List.map constructWall
+        |> List.concatMap identity
+        |> Set.fromList
+
+
 filledCave : Part -> Cave -> String
 filledCave part cave =
     dropSand part (findEdges part cave) cave
+
+filledCave2 : RockSegments -> String
+filledCave2 rock =
+    let
+        depth =
+            Set.toList rock
+                |> List.map Tuple.second
+                |> List.maximum
+                |> Maybe.withDefault 0
+                |> (+) 2
+    in
+    dropSand2 depth Set.empty rock
 
 visualiseCave : Part -> Cave -> String
 visualiseCave part cave =
@@ -263,6 +328,73 @@ visualiseCave part cave =
                 (List.range 0 (depth - 1))
                 |> String.join "\n"
 
+extremeFromSet : Set Location -> (Location -> Int) -> (List Int -> Maybe Int) -> Int
+extremeFromSet set pick extreme =
+    Set.toList set
+        |> List.map pick
+        |> extreme
+        |> Maybe.withDefault 0
+
+max : Int -> Int -> Int
+max a b =
+    if a > b then
+        a
+    else
+        b
+
+min : Int -> Int -> Int
+min a b =
+    if a < b then
+        a
+    else
+        b
+
+visualiseCave2 : RockSegments -> SandSegments -> String
+visualiseCave2 rock sand =
+    let
+        rockDepth =
+            extremeFromSet rock Tuple.second List.maximum
+        sandDepth =
+            extremeFromSet sand Tuple.second List.maximum
+        sandLeft =
+            extremeFromSet sand Tuple.first List.minimum
+        rockLeft =
+            extremeFromSet rock Tuple.first List.minimum
+        sandRight =
+            extremeFromSet sand Tuple.first List.maximum
+        rockRight =
+            extremeFromSet rock Tuple.first List.maximum
+        depth =
+            if Set.isEmpty sand then
+                rockDepth
+            else
+                max sandDepth rockDepth
+        left =
+            if Set.isEmpty sand then
+                rockLeft
+            else
+                min sandLeft rockLeft
+        right =
+            if Set.isEmpty sand then
+                rockRight
+            else
+                max sandRight rockRight
+    in
+    List.map (\y ->
+        List.foldl (\x s ->
+            if Set.member (x, y) sand then
+                s ++ "o"
+            else if Set.member (x, y) rock then
+                s ++ "#"
+            else
+                s ++ "."
+            ) 
+            ""
+            (List.range left right)
+    ) 
+    (List.range 0 (depth - 1))
+        |> String.join "\n"
+
 
 
 solveA : String -> String
@@ -276,11 +408,7 @@ solveA input =
 
 solveB : String -> String
 solveB input =
-    let
-        cave =
-            constructCave input
-    in
-    filledCave B cave
+    filledCave2 (constructCave2 input)
 
 
 partA : String -> String
