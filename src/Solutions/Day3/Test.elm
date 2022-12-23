@@ -18,7 +18,7 @@ suite =
             "partA"
             [ Test.test
                 "returns expected answer"
-                (\testUnpack ->
+                (\_ ->
                     Expect.equal (Solution.partA "test") Input.expectedA
                 )
             ]
@@ -26,7 +26,7 @@ suite =
             "partB"
             [ Test.test
                 "returns expected answer"
-                (\testUnpack ->
+                (\_ ->
                     Expect.equal (Solution.partB "test") Input.expectedB
                 )
             ]

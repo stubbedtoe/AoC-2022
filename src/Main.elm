@@ -5,7 +5,7 @@ import Json.Decode as D
 import Json.Encode as E
 import List.Extra
 import Platform exposing (Program)
-import Solutions.Day1.Solution as Blackbox
+import Solutions.Day15.Solution as Blackbox
 
 
 port get : (String -> msg) -> Sub msg
@@ -91,70 +91,27 @@ processCommand model cmdString =
                 |> List.map String.trim
                 |> List.filter (\item -> item /= "")
 
+
+
+        input = 
+            args
+                |> List.drop 1
+                |> String.join ""
+
         cmd =
             List.head args
-
-        arg =
-            List.Extra.getAt 1 args
-                |> Maybe.withDefault ""
     in
     case cmd of
-        -- Just ":help" ->
-        --     model |> withCmd (put Blackbox.helpText)
+    
+        Just "partA" ->
+            model |> withCmd (put (Blackbox.partA <| input))
 
-        Just ":get" ->
-            loadFile model arg
-
-        Just ":show" ->
-            model |> withCmd (put (model.fileContents |> Maybe.withDefault "no file loaded"))
-
-        Just ":head" ->
-            model
-                |> withCmd
-                    (put (headOfFile model))
-
-        Just ":tail" ->
-            model
-                |> withCmd
-                    (put (tailOfFile model))
-
-        Just ":calc" ->
-            -- Apply Blackbox.transform with residual arguments to the contents of memory
-            -- E.g, if the input is ":calc column=5:csv" then residualArgs = ":column=5:csv"
-            case model.fileContents of
-                Nothing ->
-                    model |> withCmd (put (model.fileContents |> Maybe.withDefault "no file loaded"))
-
-                Just str ->
-                    let
-                        residualArgs =
-                            case args == [ ":calc" ] of
-                                True ->
-                                    ""
-
-                                False ->
-                                    args
-                                        |> List.drop 1
-                                        |> String.join " "
-                                        |> (\x -> ":" ++ x ++ "\n")
-                    in
-                    model |> withCmd (put (Blackbox.partA <| (residualArgs ++ removeComments str)))
+        Just "partB" ->
+            model |> withCmd (put (Blackbox.partB <| input))
 
         _ ->
-            model |> withCmd (put <| Blackbox.partA (removeComments cmdString))
+            model |> withNoCmd
 
-
-
--- FILE HANDLING
-
-
-loadFile model fileName =
-    ( model, loadFileCmd fileName )
-
-
-loadFileCmd : String -> Cmd msg
-loadFileCmd filePath =
-    sendFileName (E.string <| filePath)
 
 
 decodeFileContents : E.Value -> Maybe String

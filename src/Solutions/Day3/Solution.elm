@@ -6,8 +6,6 @@ module Solutions.Day3.Solution exposing (..)
 
 import Solutions.Day3.Input as Input
 import List.Extra exposing (Step(..))
-import List.Extra exposing (greedyGroupsOf)
-import List exposing (filterMap)
 
 type alias Item = Char
 type alias Priority = Int
@@ -35,7 +33,7 @@ processCompartments (compartment1, compartment2) =
         |> List.Extra.stoppableFoldl
             (\item acc ->
                 case acc of
-                    Just priority ->
+                    Just _ ->
                         Stop acc
                     Nothing ->
                         Continue (itemIsInCompartment compartment2 item)

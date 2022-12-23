@@ -7,8 +7,6 @@ module Solutions.Day5.Solution exposing (..)
 import Solutions.Day5.Input as Input
 import Parser exposing (Parser, symbol, spaces, succeed, int, (|.), (|=))
 import Array exposing (Array)
-import Solutions.Day13.Solution exposing (Packet)
-import Solutions.Day13.Solution exposing (Packet(..))
 
 type alias Instruction = 
     { number : Int
@@ -147,17 +145,6 @@ parseInput =
     , String.lines Input.input
         |> List.drop 10
         |> List.filterMap (\line -> Parser.run parseInstruction line |> Result.toMaybe))
-
-
-
-solveA : String -> String
-solveA input =
-    "implement partA here"
-
-
-solveB : String -> String
-solveB input =
-    "implement partB here"
 
 
 partA : String -> String

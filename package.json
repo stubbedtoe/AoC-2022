@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx elm make src/Main.elm --output=src/main.js",
     "start": "node src/repl.js",
-    "link": "ln -s ~/code/AOC-repl/src/repl.js /usr/local/bin/elm-bb",
+    "link": "ln -s ~/code/AOC-repl/src/repl.js $HOME/bin/elm-bb",
     "scaffold": "sh addDay.sh",
     "test": "npx elm-test \"src/**/Test.elm\""
   },

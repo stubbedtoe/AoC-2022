@@ -1,12 +1,12 @@
-module Solutions.Day8.Test exposing (..)
+module Solutions.Day21.Test exposing (..)
 
 {-| 
 -}
 
 
 import Expect
-import Solutions.Day8.Input as Input
-import Solutions.Day8.Solution as Solution
+import Solutions.Day21.Input as Input
+import Solutions.Day21.Solution as Solution
 import Test
 
 
@@ -18,7 +18,7 @@ suite =
             "partA"
             [ Test.test
                 "returns expected answer"
-                (\_ ->
+                (\testUnpack ->
                     Expect.equal (Solution.partA "test") Input.expectedA
                 )
             ]
@@ -26,7 +26,7 @@ suite =
             "partB"
             [ Test.test
                 "returns expected answer"
-                (\_ ->
+                (\testUnpack ->
                     Expect.equal (Solution.partB "test") Input.expectedB
                 )
             ]

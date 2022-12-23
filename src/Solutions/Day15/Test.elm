@@ -1,12 +1,12 @@
-module Solutions.Day8.Test exposing (..)
+module Solutions.Day15.Test exposing (..)
 
 {-| 
 -}
 
 
 import Expect
-import Solutions.Day8.Input as Input
-import Solutions.Day8.Solution as Solution
+import Solutions.Day15.Input as Input
+import Solutions.Day15.Solution as Solution
 import Test
 
 

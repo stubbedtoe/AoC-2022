@@ -8,7 +8,6 @@ import Solutions.Day12.Input as Input
 import List.Extra
 import Problem
 import Problem.Search
-import Dict
 
 type alias Node =
     { x : Int
@@ -59,11 +58,9 @@ getValidMoves nodes node =
 
 initialiseProblem : AllNodes -> Maybe (Problem.Problem Node)
 initialiseProblem nodes =
-    case findInitialState nodes of
-        Just initial ->
-            Just (initialiseProblemWithNode nodes initial)
-        Nothing ->
-            Nothing
+    Maybe.andThen 
+        (\initial -> Just (initialiseProblemWithNode nodes initial))
+        (findInitialState nodes)
 
 initialiseProblemWithNode : AllNodes -> Node -> Problem.Problem Node
 initialiseProblemWithNode nodes initial =
