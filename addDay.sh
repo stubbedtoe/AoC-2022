@@ -17,6 +17,7 @@ sed -i "" "s,import Input,import Solutions.Day$1.Input as Input,g" "src/Solution
 sed -i "" "s,module Test,module Solutions.Day$1.Test,g" "src/Solutions/Day$1/Test.elm"
 sed -i "" "s,import Solution,import Solutions.Day$1.Solution as Solution,g" "src/Solutions/Day$1/Test.elm"
 sed -i "" "s,import Input,import Solutions.Day$1.Input as Input,g" "src/Solutions/Day$1/Test.elm"
+sed -i "" "s,testUnpack,_,g" "src/Solutions/Day$1/Test.elm"
 
 rm input.txt
 
